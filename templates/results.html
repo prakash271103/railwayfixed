@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/results.css') }}">
+    <title>Results</title>
+</head>
+<body>
+    <script>
+document.getElementById('analyze-button').addEventListener('click', function() {
+    var formData = new FormData(document.getElementById('beam-form'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/analyze', true);
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            document.getElementById('results-container').innerHTML = xhr.responseText;
+        } else {
+            document.getElementById('results-container').innerHTML = 'Error: ' + xhr.statusText;
+        }
+    };
+    xhr.send(formData);
+});
+</script>
+
+</body>
+</html>
